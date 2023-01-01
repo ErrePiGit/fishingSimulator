@@ -55,7 +55,20 @@ function drawSubMenuTA(context, bgLocation) {
 
 }
 
-  function drawFishTA(context, bgRiver, t1, fishFloat, sourceFloatX, sourceFloatY, sourceFloatWidth, sourceFloatHeight, x, y, floatWidth, floatHeight, totCatch, totKg) {
+  function drawFishTA(context,
+    bgRiver,
+    t1,
+    fishFloat,
+    sourceFloatX,
+    sourceFloatY,
+    sourceFloatWidth,
+    sourceFloatHeight,
+    x,
+    y,
+    floatWidth,
+    floatHeight,
+    totCatch,
+    totKg) {
     context.drawImage(bgRiver, 0, 95);
 
     context.drawImage(

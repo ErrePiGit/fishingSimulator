@@ -1,313 +1,306 @@
 function init() {
+  const canvas = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
+  var rect = canvas.getBoundingClientRect();
 
-    const canvas = document.getElementById("canvas");
-    const context = canvas.getContext("2d");
-    var rect = canvas.getBoundingClientRect();
+  // float class
+  class floatObject {
+    constructor() {
+      this.startX = 500;
+      this.startY = 200;
+      this.x = this.startX;
+      this.y = this.startY;
+      this.startFloatWidth = 16;
+      this.startFloatHeight = 16;
+      this.floatWidth = this.startFloatWidth;
+      this.floatHeight = this.startFloatHeight;
+      this.startSourceFloatHeight = 16;
+      this.startSourceFloatWidth = 16;
+      this.sourceFloatWidth = this.startSourceFloatWidth;
+      this.sourceFloatHeight = this.startSourceFloatHeight;
+      this.sourceFloatX = 0;
+      this.sourceFloatY = 0;
+    }
+  }
 
-    // float position
-    var startX = 500;
-    var startY = 200;
-    var x = startX;
-    var y = startY;
-    var waves = 0;
-    var i = 0;
-    var force = 25;
-    var mouse = 0;
-    var startFloatWidth = 16;
-    var startFloatHeight = 16;
-    var floatWidth = startFloatWidth;
-    var floatHeight = startFloatHeight;
-    var startSourceFloatHeight = 16;
-    var startSourceFloatWidth = 16;
-    var sourceFloatWidth = startSourceFloatWidth;
-    var sourceFloatHeight = startSourceFloatHeight;
-    var sourceFloatX = 0;
-    var sourceFloatY = 0;
+  var float = new floatObject();
 
-    // mouse position
-    var mposX = 0;
-    var mposY = 0;
+  // utilities
+  var waves = 0;
+  var i = 0;
+  var force = 25;
+  var mouse = 0;
 
-    // score
-    var totCatch = 0;
-    var totKg = 0;
-    var catchedFish;
+  // mouse position
+  var mposX = 0;
+  var mposY = 0;
 
-    // status 0 = wait, 1 = fish, 2 = return, 3 = catch
-    var status = 0;
-    var frequency = 1000;
+  // score
+  var totCatch = 0;
+  var totKg = 0;
+  var catchedFish;
 
-    // game 0 = time attack, 1 = catch, 2 = main menu, 3 = location menu
-    var game = 2;
+  // status 0 = wait, 1 = fish, 2 = return, 3 = catch
+  var status = 0;
+  var frequency = 1000;
 
-    // var for fps
-    var t = Date.now();
-    var timePassed = 0;
-    var fps = 0;
-    var speed = 3;
+  // game 0 = time attack, 1 = catch, 2 = main menu, 3 = location menu, 4 resume
+  var game = 2;
 
-    // timer
-    var t0 = 0;
-    var t1 = 0;
-    var countT = 0;
+  // var for fps
+  var t = Date.now();
+  var timePassed = 0;
+  var fps = 0;
+  var speed = 3;
 
-    // images src
-    let fishFloat = new Image();
-    fishFloat.src = 'img/float_01.png';
-    let bgMain = new Image();
-    bgMain.src = 'img/bg_main.png';
-    let bgLocation = new Image();
-    bgLocation.src = 'img/bg_location.png';
-    let bgRiver = new Image();
-    bgRiver.src = 'img/bg_river.png';
-    let bgCatch = new Image();
-    bgCatch.src = 'img/bg_catch.png';
+  // timer
+  var t0 = 0;
+  var t1 = 0;
+  var countT = 0;
 
-    function main() {
+  // images src
+  let fishFloat = new Image();
+  fishFloat.src = "img/float_01.png";
+  let bgMain = new Image();
+  bgMain.src = "img/bg_main.png";
+  let bgLocation = new Image();
+  bgLocation.src = "img/bg_location.png";
+  let bgRiver = new Image();
+  bgRiver.src = "img/bg_river.png";
+  let bgCatch = new Image();
+  bgCatch.src = "img/bg_catch.png";
 
-        // control FPS
-        timePassed = (Date.now() - t) / 1000;
-        t = Date.now();
-        fps = Math.round(1 / timePassed);
+  function main() {
+    // control FPS
+    timePassed = (Date.now() - t) / 1000;
+    t = Date.now();
+    fps = Math.round(1 / timePassed);
 
-        // handle events
-        document.onmousedown = function (event) {
+    // handle events
+    document.onmousedown = function (event) {
+      mposX = event.clientX - rect.left;
+      mposY = event.clientY - rect.top;
 
-            mposX = event.clientX - rect.left;
-            mposY = event.clientY - rect.top;
-
-            // click on main menu
-            if (game == 2) {
-
-                if (mposY < 241 && mposY > 219) {
-                    mouse = 1;
-                }
-
-            }
-
-            // click on location menu
-            if (game == 3) {
-
-                if (mposY < 241 && mposY > 219) {
-                    mouse = 1;
-                }
-
-            }
-
-            // click on time attack
-            if (game == 0) {
-
-                mouse = 1;
-
-            }
-
-            // click on catch
-            if (game == 1) {
-
-                if (mposY < 241 && mposY > 219) {
-                    mouse = 1;
-                }
-
-            }
-
-            // click on resume
-            if (game == 4) {
-
-                if (mposY < 241 && mposY > 220) {
-                    mouse = 1;
-                }
-
-            }
+      // click on main menu
+      if (game == 2) {
+        if (mposY < 241 && mposY > 219) {
+          mouse = 1;
         }
+      }
 
-        // status event
-        i = i + (speed * timePassed * 1.1);
-
-        // time attack
-        if (game == 0) {
-
-            // timer 
-            if (countT == 0) {
-                t0 = Date.now();
-                countT = 1;
-            }
-
-            t1 = Math.round((Date.now() - t0) / 1000);
-
-            if (t1 > 119) {
-                game = 4;
-                mouse = 0;
-            }
-
-            // float movement
-            x = startX + ((startFloatWidth - floatWidth)/2);
-            y = startY + ((startFloatHeight - sourceFloatHeight)/2);
-            sourceFloatX = ((startSourceFloatWidth - sourceFloatWidth)/2);
-            sourceFloatY = ((startSourceFloatHeight - sourceFloatHeight)/2);
-
-            if (status == 0) {
-                waves = (3 * Math.sin(i)) * Math.random();
-                sourceFloatWidth += speed * waves * timePassed;
-                sourceFloatHeight += speed * waves * timePassed;
-                floatWidth += speed * waves * timePassed;
-                floatHeight += speed * waves * timePassed;
-
-                if (sourceFloatWidth > startSourceFloatWidth) {
-                    sourceFloatWidth = startSourceFloatWidth;
-                    sourceFloatHeight = startSourceFloatHeight;
-                    floatWidth = startFloatWidth;
-                    floatHeight = startFloatHeight;
-                }
-
-                if (mouse == 1) {
-                    i = 0;
-                    mouse = 0;
-                }
-
-                if (i > (frequency * Math.random())) {
-                    if (Math.random() < 0.2) {
-                        status = 1;
-                        i = 0;
-                    }
-                }
-            }
-
-            // if mouse down in this status you catch the fish
-            if (status == 1) {
-                sourceFloatWidth -= speed * timePassed * force;
-                sourceFloatHeight -= speed * timePassed * force;
-                floatWidth -= speed * timePassed * force;
-                floatHeight -= speed * timePassed * force;
-
-
-                if (floatHeight <= 1) {
-                    floatHeight = 1;
-                    floatWidth = 1;
-                    sourceFloatHeight = 1;
-                    sourceFloatWidth = 1;
-                }
-
-                if (mouse == 1) {
-                    status = 3;
-                    mouse = 0;
-
-                    // random fish
-                    catchedFish = getRandomFish();
-
-                    totCatch++;
-                    totKg += catchedFish.weight;
-
-
-                }
-
-                if (i > ((frequency / 500) * Math.random())) {
-                    if (Math.random() < 0.2) {
-                        status = 2;
-                        i = 0;
-                    }
-                }
-
-            }
-
-            if (status == 2) {
-                if (floatHeight < startFloatHeight) {
-                    floatHeight += speed * timePassed * force;
-                    floatWidth += speed * timePassed * force;
-                    sourceFloatHeight += speed * timePassed * force;
-                    sourceFloatWidth += speed * timePassed * force;
-                    force -= timePassed;
-
-                }
-
-                if (floatHeight >= startFloatHeight) {
-                    status = 0;
-                    force = 25;
-                }
-            }
-
+      // click on location menu
+      if (game == 3) {
+        if (mposY < 241 && mposY > 219) {
+          mouse = 1;
         }
+      }
 
-        // after catch
-        if (status == 3) {
+      // click on time attack
+      if (game == 0) {
+        mouse = 1;
+      }
 
-            x = startX;
-            y = startY;
-            sourceFloatHeight = startSourceFloatWidth;
-            sourceFloatWidth = startSourceFloatWidth;
-            floatHeight = startFloatHeight;
-            floatWidth = startFloatWidth;
-            sourceFloatX = 0;
-            sourceFloatY = 0;
-            game = 1;
-
-            if (mouse == 1) {
-                game = 0;
-                status = 0;
-            }
-
+      // click on catch
+      if (game == 1) {
+        if (mposY < 241 && mposY > 219) {
+          mouse = 1;
         }
+      }
 
-        // main menu handle events
-        if (game == 2) {
-
-            if (mouse == 1) {
-                game = 3;
-                mouse = 0;
-            }
-
+      // click on resume
+      if (game == 4) {
+        if (mposY < 241 && mposY > 220) {
+          mouse = 1;
         }
+      }
+    };
 
-        // location menu handle events
-        if (game == 3) {
+    // status event
+    i += speed * timePassed * 1.1;
 
-            if (mouse == 1) {
-                game = 0;
-                mouse = 0;
-            }
+    // time attack
+    if (game == 0) {
+      if (countT == 0) {
+        t0 = Date.now();
+        countT = 1;
+      }
 
-        }
+      t1 = Math.round((Date.now() - t0) / 1000);
 
-        // resume
-        if (game == 4) {
-            if (mouse == 1) {
-                game = 2;
-                mouse = 0;
-                status = 0;
-                countT = 0;
-                totKg = 0;
-                totCatch = 0;
-            }
-        }
-
+      if (t1 > 119) {
+        game = 4;
         mouse = 0;
+      }
 
-        // water
+      // float movement
+      float.x = float.startX + (float.startFloatWidth - float.floatWidth) / 2;
+      float.y =
+        float.startY + (float.startFloatHeight - float.sourceFloatHeight) / 2;
+      float.sourceFloatX =
+        (float.startSourceFloatWidth - float.sourceFloatWidth) / 2;
+      float.sourceFloatY =
+        (float.startSourceFloatHeight - float.sourceFloatHeight) / 2;
 
+      if (status == 0) {
+        waves = 3 * Math.sin(i) * Math.random();
+        float.sourceFloatWidth += speed * waves * timePassed;
+        float.sourceFloatHeight += speed * waves * timePassed;
+        float.floatWidth += speed * waves * timePassed;
+        float.floatHeight += speed * waves * timePassed;
 
-        // drawing
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        
-        if (game == 2) {
-            drawMainMenu(context, bgMain);
+        if (float.sourceFloatWidth > float.startSourceFloatWidth) {
+          float.sourceFloatWidth = float.startSourceFloatWidth;
+          float.sourceFloatHeight = float.startSourceFloatHeight;
+          float.floatWidth = float.startFloatWidth;
+          float.floatHeight = float.startFloatHeight;
         }
-        if (game == 3) {
-            drawSubMenuTA(context, bgLocation);
-        }
-        if (game == 0) {
-            drawFishTA(context, bgRiver, t1, fishFloat, sourceFloatX, sourceFloatY, sourceFloatWidth, sourceFloatHeight, x, y, floatWidth, floatHeight, totCatch, totKg);
-        }
-        if (game == 1) {
-            drawCatch(context, bgCatch, catchedFish);
-        }
-        if (game == 4) {
-            drawResume(context, bgCatch, totCatch, totKg);
+
+        if (mouse == 1) {
+          i = 0;
+          mouse = 0;
         }
 
+        if (i > frequency * Math.random()) {
+          if (Math.random() < 0.2) {
+            status = 1;
+            i = 0;
+          }
+        }
+      }
 
-        window.requestAnimationFrame(main);
+      // if mouse down in this status you catch the fish
+      if (status == 1) {
+        float.sourceFloatWidth -= speed * timePassed * force;
+        float.sourceFloatHeight -= speed * timePassed * force;
+        float.floatWidth -= speed * timePassed * force;
+        float.floatHeight -= speed * timePassed * force;
 
+        if (float.floatHeight <= 1) {
+          float.floatHeight = 1;
+          float.floatWidth = 1;
+          float.sourceFloatHeight = 1;
+          float.sourceFloatWidth = 1;
+        }
+
+        if (mouse == 1) {
+          status = 3;
+          mouse = 0;
+
+          // random fish
+          catchedFish = getRandomFish();
+
+          totCatch++;
+          totKg += catchedFish.weight;
+        }
+
+        if (i > (frequency / 500) * Math.random()) {
+          if (Math.random() < 0.2) {
+            status = 2;
+            i = 0;
+          }
+        }
+      }
+
+      if (status == 2) {
+        if (float.floatHeight < float.startFloatHeight) {
+          float.floatHeight += speed * timePassed * force;
+          float.floatWidth += speed * timePassed * force;
+          float.sourceFloatHeight += speed * timePassed * force;
+          float.sourceFloatWidth += speed * timePassed * force;
+          force -= timePassed;
+        }
+
+        if (float.floatHeight >= float.startFloatHeight) {
+          status = 0;
+          force = 25;
+        }
+      }
     }
 
-    main();
+    // after catch
+    if (status == 3) {
+      float.x = float.startX;
+      float.y = float.startY;
+      float.sourceFloatHeight = float.startSourceFloatWidth;
+      float.sourceFloatWidth = float.startSourceFloatWidth;
+      float.floatHeight = float.startFloatHeight;
+      float.floatWidth = float.startFloatWidth;
+      float.sourceFloatX = 0;
+      float.sourceFloatY = 0;
+      game = 1;
 
+      if (mouse == 1) {
+        game = 0;
+        status = 0;
+      }
+    }
+
+    // main menu handle events
+    if (game == 2) {
+      if (mouse == 1) {
+        game = 3;
+        mouse = 0;
+      }
+    }
+
+    // location menu handle events
+    if (game == 3) {
+      if (mouse == 1) {
+        game = 0;
+        mouse = 0;
+      }
+    }
+
+    // resume
+    if (game == 4) {
+      if (mouse == 1) {
+        game = 2;
+        mouse = 0;
+        status = 0;
+        countT = 0;
+        totKg = 0;
+        totCatch = 0;
+      }
+    }
+
+    mouse = 0;
+
+    // drawing
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (game == 2) {
+      drawMainMenu(context, bgMain);
+    }
+    if (game == 3) {
+      drawSubMenuTA(context, bgLocation);
+    }
+    if (game == 0) {
+      drawFishTA(
+        context,
+        bgRiver,
+        t1,
+        fishFloat,
+        float.sourceFloatX,
+        float.sourceFloatY,
+        float.sourceFloatWidth,
+        float.sourceFloatHeight,
+        float.x,
+        float.y,
+        float.floatWidth,
+        float.floatHeight,
+        totCatch,
+        totKg
+      );
+    }
+    if (game == 1) {
+      drawCatch(context, bgCatch, catchedFish);
+    }
+    if (game == 4) {
+      drawResume(context, bgCatch, totCatch, totKg);
+    }
+
+    window.requestAnimationFrame(main);
+  }
+
+  main();
 }
