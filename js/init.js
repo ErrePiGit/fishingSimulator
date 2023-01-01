@@ -31,9 +31,7 @@ function init() {
     // score
     var totCatch = 0;
     var totKg = 0;
-    var randomFish = 0;
-    var fish = 0;
-    var randomKg = 0;
+    var catchedFish;
 
     // status 0 = wait, 1 = fish, 2 = return, 3 = catch
     var status = 0;
@@ -194,47 +192,10 @@ function init() {
                     mouse = 0;
 
                     // random fish
-                    randomFish = Math.round(Math.random() * 10);
-                    switch (randomFish) {
-                        case 0:
-                            fish = "Rudd";
-                            randomKg = Math.random() * 0.3;
-                            break;
-                        case 1:
-                            fish = "Trout";
-                            randomKg = Math.random() * 3;
-                            break;
-                        case 2:
-                            fish = "Carp"
-                            randomKg = Math.random() * 6;
-                            break;
-                        case 3:
-                            fish = "Tench";
-                            randomKg = Math.random() * 2;
-                            break;
-                        case 4:
-                            fish = "Chub";
-                            randomKg = Math.random() * 2;
-                            break;
-                        case 5:
-                            fish = "Eel";
-                            randomKg = Math.random() * 1;
-                            break;
-                        case 6:
-                            fish = "Loach";
-                            randomKg = Math.random() * 0.3;
-                            break;
-                        case 7:
-                            fish = "Common Roach";
-                            randomKg = Math.random() * 0.3;
-                            break;
-                        default:
-                            fish = "Bleak";
-                            randomKg = Math.random() * 0.1;
-                    }
+                    catchedFish = getRandomFish();
 
                     totCatch++;
-                    totKg += randomKg;
+                    totKg += catchedFish.weight;
 
 
                 }
@@ -422,11 +383,11 @@ function init() {
 
             context.font = '20px Courier';
             context.fillStyle = '#DDDDDD';
-            context.fillText("Fish: " + fish, 10, 80);
+            context.fillText("Fish: " + catchedFish.name, 10, 80);
 
             context.font = '20px Courier';
             context.fillStyle = '#DDDDDD';
-            context.fillText("Kgs: " + randomKg.toFixed(2), 10, 110);
+            context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 10, 110);
 
             context.font = '20px Courier';
             context.fillStyle = '#DDDDDD';
