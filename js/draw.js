@@ -10,19 +10,23 @@ function drawMainMenu(context, bgMain) {
     context.font = "bold 20px Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Choose an option:", 10, 200);
+    context.fillText("Choose an option:", 20, 200);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("1. Time Attack", 10, 240);
+    context.fillText("Time Attack", 20, 250);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("2. Tournament (coming soon)", 10, 280);
+    context.fillText("Tournament (coming soon)", 20, 300);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("3. Endless (coming soon)", 10, 320);
+    context.fillText("Endless (coming soon)", 20, 350);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Options (coming soon)", 20, 450);
 
 }
 
@@ -39,19 +43,19 @@ function drawSubMenuTA(context, bgLocation) {
     context.font = "bold 20px Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Choose a location:", 10, 200);
+    context.fillText("Choose a location:", 20, 200);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("1. River", 10, 240);
+    context.fillText("River", 20, 250);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("2. Lake(coming soon)", 10, 280);
+    context.fillText("Lake(coming soon)", 20, 300);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("3. Sea (coming soon)", 10, 320);
+    context.fillText("Sea (coming soon)", 20, 350);
 
 }
 
@@ -111,19 +115,19 @@ function drawSubMenuTA(context, bgLocation) {
     context.font = "20px Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Catch!", 10, 50);
+    context.fillText("Catch!", 20, 50);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Fish: " + catchedFish.name, 10, 80);
+    context.fillText("Fish: " + catchedFish.name, 20, 80);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 10, 110);
+    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 20, 110);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Continue", 10, 240);
+    context.fillText("Continue", 20, 240);
   }
 
   function drawResume(context, bgCatch, totCatch, totKg) {
@@ -132,18 +136,75 @@ function drawSubMenuTA(context, bgLocation) {
     context.font = "20px Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Congratulations, here your results:", 10, 50);
+    context.fillText("Congratulations, here your results:", 20, 50);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Total catch: " + totCatch, 10, 80);
+    context.fillText("Total catch: " + totCatch, 20, 80);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Total Kgs: " + totKg.toFixed(2), 10, 110);
+    context.fillText("Total Kgs: " + totKg.toFixed(2), 20, 110);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Main menu", 10, 240);
+    context.fillText("Main menu", 20, 240);
+  }
+
+  function drawOptions(context, bgOptions, fishFloat, boat, difficulty) {
+    context.drawImage(bgOptions, 0, 0);
+
+    context.font = "30px Courier";
+    context.textAlign = "center";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Fishing Simulator 3000", 400, 50);
+
+    context.font = "20px Courier";
+    context.textAlign = "left";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Float: ", 20, 200);
+
+    context.drawImage(fishFloat, 200, 184);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Boat: ", 20, 250);
+
+    context.drawImage(boat, 200, 218);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Difficulty: ", 20, 300);
+
+    if (difficulty == 300 ) {
+      context.font = "bold 20px Courier"
+    }
+    else {
+    context.font = "20px Courier";
+    }
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Easy", 200, 300);
+
+    if (difficulty == 370 ) {
+      context.font = "bold 20px Courier"
+    }
+    else {
+    context.font = "20px Courier";
+    }
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Normal", 300, 300);
+
+    if (difficulty == 500 ) {
+      context.font = "bold 20px Courier"
+    }
+    else {
+    context.font = "20px Courier";
+    }
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Hard", 400, 300);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Back to main menu", 20, 400);
   }
 

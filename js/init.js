@@ -47,7 +47,7 @@ function init() {
   var status = 0;
   var frequency = 1000;
 
-  // game 0 = time attack, 1 = catch, 2 = main menu, 3 = location menu, 4 resume
+  // game 0 = time attack, 1 = catch, 2 = main menu, 3 = location menu, 4 = resume, 5 = options
   var game = 2;
 
   // var for fps
@@ -64,6 +64,8 @@ function init() {
   // images src
   let fishFloat = new Image();
   fishFloat.src = "img/float_01.png";
+  let boat = new Image();
+  boat.src = "img/boat_01.png";
   let bgMain = new Image();
   bgMain.src = "img/bg_main.png";
   let bgLocation = new Image();
@@ -72,6 +74,8 @@ function init() {
   bgRiver.src = "img/bg_river.png";
   let bgCatch = new Image();
   bgCatch.src = "img/bg_catch.png";
+  let bgOptions = new Image();
+  bgOptions.src = "img/bg_options.png";
 
   function main() {
     // control FPS
@@ -86,8 +90,11 @@ function init() {
 
       // click on main menu
       if (game == 2) {
-        if (mposY < 241 && mposY > 219) {
+        if (mposY < 270 && mposY > 230) {
           mouse = 1;
+        }
+        if (mposY < 470 && mposY > 430) {
+          mouse = 2;
         }
       }
 
@@ -114,6 +121,22 @@ function init() {
       if (game == 4) {
         if (mposY < 241 && mposY > 220) {
           mouse = 1;
+        }
+      }
+
+      // click on options
+      if (game == 5) {
+        if (mposY < 420 && mposY > 380) {
+          mouse = 1;
+        }
+        if (mposY < 320 && mposY > 280 && mposX < 250 && mposX > 200) {
+          mouse = 2;
+        }
+        if (mposY < 320 && mposY > 280 && mposX < 350 && mposX > 300) {
+          mouse = 3;
+        }
+        if (mposY < 320 && mposY > 280 && mposX < 450 && mposX > 400) {
+          mouse = 4;
         }
       }
     };
@@ -245,6 +268,10 @@ function init() {
         game = 3;
         mouse = 0;
       }
+      if (mouse == 2) {
+        game = 5;
+        mouse = 0;
+      }
     }
 
     // location menu handle events
@@ -264,6 +291,23 @@ function init() {
         countT = 0;
         totKg = 0;
         totCatch = 0;
+      }
+    }
+
+    // main menu handle events
+    if (game == 5) {
+      if (mouse == 1) {
+        game = 2;
+        mouse = 0;
+      }
+      if (mouse == 2) {
+        difficulty = 300;
+      }
+      if (mouse == 3) {
+        difficulty = 370;
+      }
+      if (mouse == 4) {
+        difficulty = 500;
       }
     }
 
@@ -301,6 +345,9 @@ function init() {
     }
     if (game == 4) {
       drawResume(context, bgCatch, totCatch, totKg);
+    }
+    if (game == 5) {
+      drawOptions(context, bgOptions, fishFloat, boat, difficulty);
     }
 
     window.requestAnimationFrame(main);
