@@ -31,6 +31,9 @@ function init() {
   var force = 25;
   var mouse = 0;
 
+  // difficulty 500 = hard, 370 = normal, 300 = easy
+  var difficulty = 370; 
+
   // mouse position
   var mposX = 0;
   var mposY = 0;
@@ -180,6 +183,7 @@ function init() {
           float.floatWidth = 1;
           float.sourceFloatHeight = 1;
           float.sourceFloatWidth = 1;
+          
         }
 
         if (mouse == 1) {
@@ -193,7 +197,7 @@ function init() {
           totKg += catchedFish.weight;
         }
 
-        if (i > (frequency / 500) * Math.random()) {
+        if (i > (frequency / difficulty) * Math.random()) {
           if (Math.random() < 0.2) {
             status = 2;
             i = 0;
