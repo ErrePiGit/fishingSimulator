@@ -12,7 +12,7 @@ if (game == 2) {
 
   // click on location menu
   if (game == 3) {
-    if (mposY < 241 && mposY > 219) {
+    if (mposY < 270 && mposY > 230) {
       mouse = 1;
     }
   }
@@ -24,14 +24,14 @@ if (game == 2) {
 
   // click on catch
   if (game == 1) {
-    if (mposY < 241 && mposY > 219) {
+    if (mposY < 260 && mposY > 220) {
       mouse = 1;
     }
   }
 
   // click on resume
   if (game == 4) {
-    if (mposY < 241 && mposY > 220) {
+    if (mposY < 260 && mposY > 220) {
       mouse = 1;
     }
   }
