@@ -26,7 +26,7 @@ function drawMainMenu(context, bgMain) {
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Options (coming soon)", 20, 450);
+    context.fillText("Options", 20, 450);
 
 }
 
@@ -63,29 +63,30 @@ function drawSubMenuTA(context, bgLocation) {
     bgRiver,
     t1,
     fishFloat,
-    sourceFloatX,
-    sourceFloatY,
-    sourceFloatWidth,
-    sourceFloatHeight,
-    x,
-    y,
-    floatWidth,
-    floatHeight,
+    float,
+    player,
+    playerOne,
+    rod,
+    playerOneRod,
     totCatch,
     totKg) {
     context.drawImage(bgRiver, 0, 95);
 
     context.drawImage(
       fishFloat,
-      sourceFloatX,
-      sourceFloatY,
-      sourceFloatWidth,
-      sourceFloatHeight,
-      x,
-      y,
-      floatWidth,
-      floatHeight
+      float.sourceFloatX,
+      float.sourceFloatY,
+      float.sourceFloatWidth,
+      float.sourceFloatHeight,
+      float.x,
+      float.y,
+      float.floatWidth,
+      float.floatHeight
     );
+
+    context.drawImage(player, playerOne.x, playerOne.y);
+
+    context.drawImage(rod, playerOneRod.x, playerOneRod.y);
 
     context.font = "20px Courier";
     context.textAlign = "center";
@@ -151,7 +152,7 @@ function drawSubMenuTA(context, bgLocation) {
     context.fillText("Main menu", 20, 240);
   }
 
-  function drawOptions(context, bgOptions, fishFloat, boat, difficulty) {
+  function drawOptions(context, bgOptions, fishFloat, player, difficulty) {
     context.drawImage(bgOptions, 0, 0);
 
     context.font = "30px Courier";
@@ -168,9 +169,9 @@ function drawSubMenuTA(context, bgLocation) {
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Boat: ", 20, 250);
+    context.fillText("Player: ", 20, 250);
 
-    context.drawImage(boat, 200, 218);
+    context.drawImage(player, 200, 229);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";

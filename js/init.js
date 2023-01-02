@@ -25,6 +25,26 @@ function init() {
 
   var float = new floatObject();
 
+  class playerObject {
+    constructor() {
+      this.startX = 480;
+      this.startY = 345;
+      this.x = this.startX;
+      this.y = this.startY;
+    }
+  }
+
+  var playerOne = new playerObject();
+
+  class playerRod {
+    constructor() {
+      this.x = (playerOne.x + 20);
+      this.y = (playerOne.y - 30);
+    }
+  }
+
+  var playerOneRod = new playerRod();
+
   // utilities
   var waves = 0;
   var i = 0;
@@ -64,8 +84,10 @@ function init() {
   // images src
   let fishFloat = new Image();
   fishFloat.src = "img/float_01.png";
-  let boat = new Image();
-  boat.src = "img/boat_01.png";
+  let player = new Image();
+  player.src = "img/player_01.png";
+  let rod = new Image();
+  rod.src = "img/rod_01.png";
   let bgMain = new Image();
   bgMain.src = "img/bg_main.png";
   let bgLocation = new Image();
@@ -83,62 +105,12 @@ function init() {
     t = Date.now();
     fps = Math.round(1 / timePassed);
 
-    // handle events
+    // handle mouse click
     document.onmousedown = function (event) {
       mposX = event.clientX - rect.left;
       mposY = event.clientY - rect.top;
 
-      // click on main menu
-      if (game == 2) {
-        if (mposY < 270 && mposY > 230) {
-          mouse = 1;
-        }
-        if (mposY < 470 && mposY > 430) {
-          mouse = 2;
-        }
-      }
-
-      // click on location menu
-      if (game == 3) {
-        if (mposY < 241 && mposY > 219) {
-          mouse = 1;
-        }
-      }
-
-      // click on time attack
-      if (game == 0) {
-        mouse = 1;
-      }
-
-      // click on catch
-      if (game == 1) {
-        if (mposY < 241 && mposY > 219) {
-          mouse = 1;
-        }
-      }
-
-      // click on resume
-      if (game == 4) {
-        if (mposY < 241 && mposY > 220) {
-          mouse = 1;
-        }
-      }
-
-      // click on options
-      if (game == 5) {
-        if (mposY < 420 && mposY > 380) {
-          mouse = 1;
-        }
-        if (mposY < 320 && mposY > 280 && mposX < 250 && mposX > 200) {
-          mouse = 2;
-        }
-        if (mposY < 320 && mposY > 280 && mposX < 350 && mposX > 300) {
-          mouse = 3;
-        }
-        if (mposY < 320 && mposY > 280 && mposX < 450 && mposX > 400) {
-          mouse = 4;
-        }
-      }
+      mouse = mouseEvent(mposX, mposY, game, mouse);
     };
 
     // status event
@@ -328,14 +300,11 @@ function init() {
         bgRiver,
         t1,
         fishFloat,
-        float.sourceFloatX,
-        float.sourceFloatY,
-        float.sourceFloatWidth,
-        float.sourceFloatHeight,
-        float.x,
-        float.y,
-        float.floatWidth,
-        float.floatHeight,
+        float,
+        player,
+        playerOne,
+        rod,
+        playerOneRod,
         totCatch,
         totKg
       );
@@ -347,7 +316,7 @@ function init() {
       drawResume(context, bgCatch, totCatch, totKg);
     }
     if (game == 5) {
-      drawOptions(context, bgOptions, fishFloat, boat, difficulty);
+      drawOptions(context, bgOptions, fishFloat, player, difficulty);
     }
 
     window.requestAnimationFrame(main);
