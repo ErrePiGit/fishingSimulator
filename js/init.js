@@ -10,14 +10,10 @@ function init() {
       this.startY = 230;
       this.x = this.startX;
       this.y = this.startY;
-      this.startFloatWidth = 32;
-      this.startFloatHeight = 32;
-      this.floatWidth = this.startFloatWidth;
-      this.floatHeight = this.startFloatHeight;
-      this.startSourceFloatHeight = 32;
-      this.startSourceFloatWidth = 32;
-      this.sourceFloatWidth = this.startSourceFloatWidth;
-      this.sourceFloatHeight = this.startSourceFloatHeight;
+      this.floatWidth = 32;
+      this.floatHeight = 32;
+      this.sourceFloatWidth = 32;
+      this.sourceFloatHeight = 32;
       this.sourceFloatX = 64;
       this.sourceFloatY = 0;
     }
@@ -33,10 +29,8 @@ function init() {
       this.y = this.startY;
       this.playerWidth = 32;
       this.playerHeight = 32;
-      this.startSourcePlayerHeight = 32;
-      this.startSourcePlayerWidth = 32;
-      this.sourcePlayerWidth = this.startSourcePlayerWidth;
-      this.sourcePlayerHeight = this.startSourcePlayerHeight;
+      this.sourcePlayerWidth = 32;
+      this.sourcePlayerHeight = 32;
       this.sourcePlayerX = 38;
       this.sourcePlayerY = 100;
     }
@@ -53,25 +47,25 @@ function init() {
 
   var playerOneRod = new playerRod();
 
-  // utilities
+  // utilities and counters
   var i = 0;
-  var mouse = 0;
-  var c = 0;
+  var resetFloatPosition = 0;
   var showCatch = 0;
-  var d = 0;
-  var dd = 0;
+  var showInventory = 0;
 
   // difficulty 300 = hard, 200 = normal, 100 = easy
   var difficulty = 200; 
 
-  // mouse position
+  // mouse position and status
   var mposX = 0;
   var mposY = 0;
+  var mouse = 0;
 
   // score
   var totCatch = 0;
   var totKg = 0;
   var catchedFish;
+  var listFish = [];
 
   // status 0 = wait, 1 = fish, 2 = return, 3 = catch
   var status = 0;
@@ -90,6 +84,8 @@ function init() {
   var t0 = 0;
   var t1 = 0;
   var countT = 0;
+  var d0 = 0;
+  var d1 = 0;
 
   // images src
   let fishFloat = new Image();
@@ -142,9 +138,8 @@ function init() {
 
       // float movement
       if (status == 0) {
-        float.sourceFloatX = floatMovement(float.sourceFloatX, c);
-
-        c = 1;
+        float.sourceFloatX = floatMovement(float.sourceFloatX, resetFloatPosition);
+        resetFloatPosition = 1;
 
         if (mouse == 1) {
           i = 0;
@@ -162,16 +157,20 @@ function init() {
       // if mouse down in this status you catch the fish
       if (status == 1) {
         float.sourceFloatX = floatCatch(float.sourceFloatX);
-        c = 0;
+        resetFloatPosition = 0;
 
         if (mouse == 1) {
           status = 0;
           mouse = 0;
           showCatch = 1;
-          d = Date.now();
+          d0 = Date.now();
 
           // random fish
           catchedFish = getRandomFish();
+
+          listFish.push(catchedFish);
+
+          console.log(listFish.length);
 
           totCatch++;
           totKg += catchedFish.weight;
@@ -185,12 +184,26 @@ function init() {
         }
       }
 
+      if (mouse == 3) {
+        game = 4;
+        mouse = 0;
+      }
+
+      if (mouse == 2 && showInventory == 0) {
+        showInventory = 1;
+        mouse = 0;
+        }
+      if (mouse == 2 && showInventory == 1){
+          showInventory = 0;
+          mouse = 0;
+        }
+
     }
 
     // after catch
     if (showCatch == 1) {
-      dd = Date.now() - d;
-      if (dd > 3000) {
+      d1 = Date.now() - d0;
+      if (d1 > 3000) {
         showCatch = 0;
       }
     }
@@ -218,12 +231,13 @@ function init() {
     // resume
     if (game == 4) {
       if (mouse == 1) {
-        game = 2;
         mouse = 0;
         status = 0;
         countT = 0;
         totKg = 0;
         totCatch = 0;
+        listFish.length = 0;
+        game = 2;
       }
     }
 
@@ -267,7 +281,9 @@ function init() {
         totCatch,
         totKg,
         catchedFish,
-        showCatch
+        showCatch,
+        showInventory,
+        listFish
       );
     }
     if (game == 4) {

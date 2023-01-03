@@ -4,7 +4,7 @@ function drawMainMenu(context, bgMain) {
 
     context.drawImage(bgMain, 0, 0);
 
-    context.font = "30px Courier";
+    context.font = "20px Courier";
     context.textAlign = "center";
     context.fillStyle = "#DDDDDD";
     context.fillText("Fishing Simulator 3000", 400, 50);
@@ -74,7 +74,9 @@ function drawSubMenuTA(context, bgLocation) {
     totCatch,
     totKg,
     catchedFish,
-    showCatch) {
+    showCatch,
+    showInventory,
+    listFish) {
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -109,15 +111,36 @@ function drawSubMenuTA(context, bgLocation) {
     context.font = "20px Courier";
     context.textAlign = "center";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Timer: " + (120 - t1), 400, 50);
+    context.fillText("Timer", 400, 35);
+
+    context.font = "20px Courier";
+    context.textAlign = "center";
+    context.fillStyle = "#DDDDDD";
+    context.fillText((120 - t1), 400, 65);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Total catch: " + totCatch, 200, 50);
+    context.fillText("Total catch", 200, 35);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Total Kgs: " + totKg.toFixed(2), 600, 50);
+    context.fillText(totCatch, 200, 65);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Total Weight", 600, 35);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText(totKg.toFixed(2), 600, 65);
+
+    context.font = "10px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Inventory", 50, 50);
+
+    context.font = "10px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Main Menu", 750, 50);
 
     context.beginPath();
     context.strokeStyle = "#666666";
@@ -126,6 +149,21 @@ function drawSubMenuTA(context, bgLocation) {
     context.lineTo(800, 93);
     context.stroke();
     context.closePath();
+
+  if (showInventory == 1) {
+    context.fillStyle = "rgba(0, 0, 0, 0.7)";
+    context.fillRect(0, 95, 150, 505);
+
+    for (var a = 0; a < listFish.length; a++){
+    context.font = "10px Courier";
+    context.textAlign = "left";
+    context.fillStyle = "#DDDDDD";
+    context.fillText(listFish[a].name, 20, (150 +(a*15)));
+
+    context.fillText(listFish[a].weight.toFixed(2) + " Kg", 70, (150 +(a*15)));
+    }
+
+  }
 
   if (showCatch == 1) {
 

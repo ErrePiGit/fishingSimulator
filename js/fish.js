@@ -2,38 +2,47 @@ const FISH_TYPES = [
   {
     name: "Rudd",
     maxWeightKg: 0.3,
+    number: 0,
   },
   {
     name: "Trout",
     maxWeightKg: 3,
+    number: 0,
   },
   {
     name: "Carp",
     maxWeightKg: 6,
+    number: 0,
   },
   {
     name: "Tench",
     maxWeightKg: 2,
+    number: 0,
   },
   {
     name: "Chub",
     maxWeightKg: 2,
+    number: 0,
   },
   {
     name: "Eel",
     maxWeightKg: 1,
+    number: 0,
   },
   {
     name: "Loach",
     maxWeightKg: 0.3,
+    number: 0,
   },
   {
-    name: "Common Roach",
+    name: "Roach",
     maxWeightKg: 0.3,
+    number: 0,
   },
   {
     name: "Bleak",
     maxWeightKg: 0.1,
+    number: 0,
   },
 ];
 

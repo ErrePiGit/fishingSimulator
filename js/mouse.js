@@ -19,7 +19,15 @@ if (game == 2) {
 
   // click on time attack
   if (game == 0) {
-    mouse = 1;
+    if (mposY < 600 && mposY > 95) {
+      mouse = 1;
+    }
+    if (mposY <= 95 && mposY > 0 && mposX < 100) {
+      mouse = 2;
+    }
+    if (mposY <= 95 && mposY > 0 && mposX > 700) {
+      mouse = 3;
+    }
   }
 
   // click on catch
