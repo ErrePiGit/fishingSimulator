@@ -10,12 +10,12 @@ function init() {
       this.startY = 200;
       this.x = this.startX;
       this.y = this.startY;
-      this.startFloatWidth = 16;
-      this.startFloatHeight = 16;
+      this.startFloatWidth = 32;
+      this.startFloatHeight = 32;
       this.floatWidth = this.startFloatWidth;
       this.floatHeight = this.startFloatHeight;
-      this.startSourceFloatHeight = 16;
-      this.startSourceFloatWidth = 16;
+      this.startSourceFloatHeight = 32;
+      this.startSourceFloatWidth = 32;
       this.sourceFloatWidth = this.startSourceFloatWidth;
       this.sourceFloatHeight = this.startSourceFloatHeight;
       this.sourceFloatX = 0;
@@ -28,9 +28,17 @@ function init() {
   class playerObject {
     constructor() {
       this.startX = 480;
-      this.startY = 345;
+      this.startY = 340;
       this.x = this.startX;
       this.y = this.startY;
+      this.playerWidth = 32;
+      this.playerHeight = 32;
+      this.startSourcePlayerHeight = 32;
+      this.startSourcePlayerWidth = 32;
+      this.sourcePlayerWidth = this.startSourcePlayerWidth;
+      this.sourcePlayerHeight = this.startSourcePlayerHeight;
+      this.sourcePlayerX = 38;
+      this.sourcePlayerY = 100;
     }
   }
 
@@ -38,8 +46,8 @@ function init() {
 
   class playerRod {
     constructor() {
-      this.x = (playerOne.x + 20);
-      this.y = (playerOne.y - 30);
+      this.x = (playerOne.x + 16);
+      this.y = (playerOne.y - 20);
     }
   }
 

@@ -83,10 +83,28 @@ function drawSubMenuTA(context, bgLocation) {
       float.floatWidth,
       float.floatHeight
     );
-
-    context.drawImage(player, playerOne.x, playerOne.y);
-
+    
     context.drawImage(rod, playerOneRod.x, playerOneRod.y);
+    
+    context.drawImage(
+      player, 
+      playerOne.sourcePlayerX,
+      playerOne.sourcePlayerY,
+      playerOne.sourcePlayerWidth,
+      playerOne.sourcePlayerHeight,
+      playerOne.x,
+      playerOne.y,
+      playerOne.playerWidth,
+      playerOne.playerHeight,
+      //playerOne.sourcePlayerX,
+      //playerOne.sourcePlayerY,
+      //playerOne.sourcePlayerWidth,
+      //playerOne.sourcePlayerHeight,
+      //playerOne.x,
+      //playerOne.y,
+      //playerOne.playerWidth,
+      //playerOne.playerHeight,
+      );
 
     context.font = "20px Courier";
     context.textAlign = "center";
