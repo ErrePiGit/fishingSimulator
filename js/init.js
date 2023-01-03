@@ -59,6 +59,7 @@ function init() {
   var c = 0;
   var showCatch = 0;
   var d = 0;
+  var dd = 0;
 
   // difficulty 300 = hard, 200 = normal, 100 = easy
   var difficulty = 200; 
@@ -167,6 +168,7 @@ function init() {
           status = 0;
           mouse = 0;
           showCatch = 1;
+          d = Date.now();
 
           // random fish
           catchedFish = getRandomFish();
@@ -187,9 +189,8 @@ function init() {
 
     // after catch
     if (showCatch == 1) {
-      d++;
-      if (d > 300) {
-        d = 0;
+      dd = Date.now() - d;
+      if (dd > 3000) {
         showCatch = 0;
       }
     }
