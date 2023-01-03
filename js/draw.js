@@ -4,7 +4,7 @@ function drawMainMenu(context, bgMain) {
 
     context.drawImage(bgMain, 0, 0);
 
-    context.font = "20px Courier";
+    context.font = "30px Courier";
     context.textAlign = "center";
     context.fillStyle = "#DDDDDD";
     context.fillText("Fishing Simulator 3000", 400, 50);
@@ -136,7 +136,7 @@ function drawSubMenuTA(context, bgLocation) {
 
     context.font = "10px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Inventory", 50, 50);
+    context.fillText("Fish History", 50, 50);
 
     context.font = "10px Courier";
     context.fillStyle = "#DDDDDD";
@@ -168,20 +168,20 @@ function drawSubMenuTA(context, bgLocation) {
   if (showCatch == 1) {
 
     context.fillStyle = "rgba(0, 0, 0, 0.7)";
-    context.fillRect(0, 400, 800, 100);
+    context.fillRect(400, 400, 400, 100);
 
-    context.font = "20px Courier";
-    context.textAlign = "center";
+    context.font = "Bold 20px Courier";
+    context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Catch!", 400, 430);
-
-    context.font = "20px Courier";
-    context.fillStyle = "#DDDDDD";
-    context.fillText("Fish: " + catchedFish.name, 200, 470);
+    context.fillText("Catch!", 420, 430);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 400, 470);
+    context.fillText("Fish: " + catchedFish.name, 420, 470);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 600, 470);
   }
 }
 
