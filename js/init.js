@@ -57,6 +57,8 @@ function init() {
   var i = 0;
   var mouse = 0;
   var c = 0;
+  var showCatch = 0;
+  var d = 0;
 
   // difficulty 300 = hard, 200 = normal, 100 = easy
   var difficulty = 200; 
@@ -162,8 +164,9 @@ function init() {
         c = 0;
 
         if (mouse == 1) {
-          status = 3;
+          status = 0;
           mouse = 0;
+          showCatch = 1;
 
           // random fish
           catchedFish = getRandomFish();
@@ -180,30 +183,14 @@ function init() {
         }
       }
 
-      if (status == 2) {
-
-        if (float.sourceFloatX != 64) {
-          float.sourceFloatX = 64;
-
-        }
-      }
     }
 
     // after catch
-    if (status == 3) {
-      float.x = float.startX;
-      float.y = float.startY;
-      float.sourceFloatHeight = float.startSourceFloatWidth;
-      float.sourceFloatWidth = float.startSourceFloatWidth;
-      float.floatHeight = float.startFloatHeight;
-      float.floatWidth = float.startFloatWidth;
-      float.sourceFloatX = 0;
-      float.sourceFloatY = 0;
-      game = 1;
-
-      if (mouse == 1) {
-        game = 0;
-        status = 0;
+    if (showCatch == 1) {
+      d++;
+      if (d > 300) {
+        d = 0;
+        showCatch = 0;
       }
     }
 
@@ -259,8 +246,6 @@ function init() {
     mouse = 0;
 
     // drawing
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
     if (game == 2) {
       drawMainMenu(context, bgMain);
     }
@@ -279,11 +264,10 @@ function init() {
         rod,
         playerOneRod,
         totCatch,
-        totKg
+        totKg,
+        catchedFish,
+        showCatch
       );
-    }
-    if (game == 1) {
-      drawCatch(context, bgCatch, catchedFish);
     }
     if (game == 4) {
       drawResume(context, bgCatch, totCatch, totKg);

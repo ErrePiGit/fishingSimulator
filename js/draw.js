@@ -1,5 +1,7 @@
 function drawMainMenu(context, bgMain) {
 
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     context.drawImage(bgMain, 0, 0);
 
     context.font = "30px Courier";
@@ -32,6 +34,7 @@ function drawMainMenu(context, bgMain) {
 
 function drawSubMenuTA(context, bgLocation) {
 
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     context.drawImage(bgLocation, 0, 0);
 
@@ -69,7 +72,12 @@ function drawSubMenuTA(context, bgLocation) {
     rod,
     playerOneRod,
     totCatch,
-    totKg) {
+    totKg,
+    catchedFish,
+    showCatch) {
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     context.drawImage(bgRiver, 0, 95);
 
     context.drawImage(
@@ -118,30 +126,31 @@ function drawSubMenuTA(context, bgLocation) {
     context.lineTo(800, 93);
     context.stroke();
     context.closePath();
+
+  if (showCatch == 1) {
+
+    context.fillStyle = "rgba(0, 0, 0, 0.7)";
+    context.fillRect(0, 400, 800, 100);
+
+    context.font = "20px Courier";
+    context.textAlign = "center";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Catch!", 400, 430);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Fish: " + catchedFish.name, 200, 470);
+
+    context.font = "20px Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 400, 470);
   }
-
-  function drawCatch (context, bgCatch, catchedFish) {
-    context.drawImage(bgCatch, 0, 0);
-
-    context.font = "20px Courier";
-    context.textAlign = "left";
-    context.fillStyle = "#DDDDDD";
-    context.fillText("Catch!", 20, 50);
-
-    context.font = "20px Courier";
-    context.fillStyle = "#DDDDDD";
-    context.fillText("Fish: " + catchedFish.name, 20, 80);
-
-    context.font = "20px Courier";
-    context.fillStyle = "#DDDDDD";
-    context.fillText("Kgs: " + catchedFish.weight.toFixed(2), 20, 110);
-
-    context.font = "20px Courier";
-    context.fillStyle = "#DDDDDD";
-    context.fillText("Continue", 20, 240);
-  }
+}
 
   function drawResume(context, bgCatch, totCatch, totKg) {
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     context.drawImage(bgCatch, 0, 0);
 
     context.font = "20px Courier";
@@ -163,6 +172,9 @@ function drawSubMenuTA(context, bgLocation) {
   }
 
   function drawOptions(context, bgOptions, fishFloat, player, difficulty) {
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     context.drawImage(bgOptions, 0, 0);
 
     context.font = "30px Courier";
