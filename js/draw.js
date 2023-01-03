@@ -96,14 +96,6 @@ function drawSubMenuTA(context, bgLocation) {
       playerOne.y,
       playerOne.playerWidth,
       playerOne.playerHeight,
-      //playerOne.sourcePlayerX,
-      //playerOne.sourcePlayerY,
-      //playerOne.sourcePlayerWidth,
-      //playerOne.sourcePlayerHeight,
-      //playerOne.x,
-      //playerOne.y,
-      //playerOne.playerWidth,
-      //playerOne.playerHeight,
       );
 
     context.font = "20px Courier";
@@ -183,19 +175,19 @@ function drawSubMenuTA(context, bgLocation) {
     context.fillStyle = "#DDDDDD";
     context.fillText("Float: ", 20, 200);
 
-    context.drawImage(fishFloat, 200, 184);
+    context.drawImage(fishFloat, 0, 0, 32, 32, 200, 184, 32, 32);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
     context.fillText("Player: ", 20, 250);
 
-    context.drawImage(player, 200, 229);
+    context.drawImage(player, 0, 0, 32, 32, 200, 229, 32, 32);
 
     context.font = "20px Courier";
     context.fillStyle = "#DDDDDD";
     context.fillText("Difficulty: ", 20, 300);
 
-    if (difficulty == 300 ) {
+    if (difficulty == 100 ) {
       context.font = "bold 20px Courier"
     }
     else {
@@ -204,7 +196,7 @@ function drawSubMenuTA(context, bgLocation) {
     context.fillStyle = "#DDDDDD";
     context.fillText("Easy", 200, 300);
 
-    if (difficulty == 370 ) {
+    if (difficulty == 200 ) {
       context.font = "bold 20px Courier"
     }
     else {
@@ -213,7 +205,7 @@ function drawSubMenuTA(context, bgLocation) {
     context.fillStyle = "#DDDDDD";
     context.fillText("Normal", 300, 300);
 
-    if (difficulty == 500 ) {
+    if (difficulty == 300 ) {
       context.font = "bold 20px Courier"
     }
     else {

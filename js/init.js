@@ -6,8 +6,8 @@ function init() {
   // float class
   class floatObject {
     constructor() {
-      this.startX = 500;
-      this.startY = 200;
+      this.startX = 480;
+      this.startY = 230;
       this.x = this.startX;
       this.y = this.startY;
       this.startFloatWidth = 32;
@@ -18,7 +18,7 @@ function init() {
       this.startSourceFloatWidth = 32;
       this.sourceFloatWidth = this.startSourceFloatWidth;
       this.sourceFloatHeight = this.startSourceFloatHeight;
-      this.sourceFloatX = 0;
+      this.sourceFloatX = 64;
       this.sourceFloatY = 0;
     }
   }
@@ -54,13 +54,12 @@ function init() {
   var playerOneRod = new playerRod();
 
   // utilities
-  var waves = 0;
   var i = 0;
-  var force = 25;
   var mouse = 0;
+  var c = 0;
 
-  // difficulty 500 = hard, 370 = normal, 300 = easy
-  var difficulty = 370; 
+  // difficulty 300 = hard, 200 = normal, 100 = easy
+  var difficulty = 200; 
 
   // mouse position
   var mposX = 0;
@@ -139,27 +138,10 @@ function init() {
       }
 
       // float movement
-      float.x = float.startX + (float.startFloatWidth - float.floatWidth) / 2;
-      float.y =
-        float.startY + (float.startFloatHeight - float.sourceFloatHeight) / 2;
-      float.sourceFloatX =
-        (float.startSourceFloatWidth - float.sourceFloatWidth) / 2;
-      float.sourceFloatY =
-        (float.startSourceFloatHeight - float.sourceFloatHeight) / 2;
-
       if (status == 0) {
-        waves = 3 * Math.sin(i) * Math.random();
-        float.sourceFloatWidth += speed * waves * timePassed;
-        float.sourceFloatHeight += speed * waves * timePassed;
-        float.floatWidth += speed * waves * timePassed;
-        float.floatHeight += speed * waves * timePassed;
+        float.sourceFloatX = floatMovement(float.sourceFloatX, c);
 
-        if (float.sourceFloatWidth > float.startSourceFloatWidth) {
-          float.sourceFloatWidth = float.startSourceFloatWidth;
-          float.sourceFloatHeight = float.startSourceFloatHeight;
-          float.floatWidth = float.startFloatWidth;
-          float.floatHeight = float.startFloatHeight;
-        }
+        c = 1;
 
         if (mouse == 1) {
           i = 0;
@@ -176,18 +158,8 @@ function init() {
 
       // if mouse down in this status you catch the fish
       if (status == 1) {
-        float.sourceFloatWidth -= speed * timePassed * force;
-        float.sourceFloatHeight -= speed * timePassed * force;
-        float.floatWidth -= speed * timePassed * force;
-        float.floatHeight -= speed * timePassed * force;
-
-        if (float.floatHeight <= 1) {
-          float.floatHeight = 1;
-          float.floatWidth = 1;
-          float.sourceFloatHeight = 1;
-          float.sourceFloatWidth = 1;
-          
-        }
+        float.sourceFloatX = floatCatch(float.sourceFloatX);
+        c = 0;
 
         if (mouse == 1) {
           status = 3;
@@ -202,24 +174,17 @@ function init() {
 
         if (i > (frequency / difficulty) * Math.random()) {
           if (Math.random() < 0.2) {
-            status = 2;
+            status = 0;
             i = 0;
           }
         }
       }
 
       if (status == 2) {
-        if (float.floatHeight < float.startFloatHeight) {
-          float.floatHeight += speed * timePassed * force;
-          float.floatWidth += speed * timePassed * force;
-          float.sourceFloatHeight += speed * timePassed * force;
-          float.sourceFloatWidth += speed * timePassed * force;
-          force -= timePassed;
-        }
 
-        if (float.floatHeight >= float.startFloatHeight) {
-          status = 0;
-          force = 25;
+        if (float.sourceFloatX != 64) {
+          float.sourceFloatX = 64;
+
         }
       }
     }
@@ -281,13 +246,13 @@ function init() {
         mouse = 0;
       }
       if (mouse == 2) {
-        difficulty = 300;
+        difficulty = 100;
       }
       if (mouse == 3) {
-        difficulty = 370;
+        difficulty = 200;
       }
       if (mouse == 4) {
-        difficulty = 500;
+        difficulty = 300;
       }
     }
 
