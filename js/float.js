@@ -1,30 +1,33 @@
+var q = 0;
 var d = 0;
-var i = 0;
 
-function floatMovement(sourceFloatX, resetFloatPosition) {
-    if (resetFloatPosition == 0) {
-        i = 0;
-    }
-  if (i < 30) {
+floatMovement = function (sourceFloatX, resetFloatPosition) {
+  if (resetFloatPosition == 0) {
+    q = 0;
+  }
+  if (q < 30) {
     sourceFloatX = 64;
   }
-  if (i >= 30 && i < 60) {
+  if (q >= 30 && q < 60) {
     sourceFloatX = 32;
   }
-  if (i >= 60 && i < 90) {
+  if (q >= 60 && q < 90) {
     sourceFloatX = 0;
   }
-  if (i >= 90 && i < 120) {
+  if (q >= 90 && q < 120) {
     sourceFloatX = 32;
   }
-  if (i == 120) {
-    i = 0;
+  if (q >= 120) {
+    q = 0;
   }
-  i++;
-  return sourceFloatX;
-}
+  q++;
 
-function floatCatch(sourceFloatX) {
+  console.log(q);
+
+  return sourceFloatX;
+};
+
+floatCatch = function (sourceFloatX) {
   if (d < 15) {
     sourceFloatX = 96;
   }
@@ -34,6 +37,7 @@ function floatCatch(sourceFloatX) {
   if (d == 30) {
     d = 0;
   }
-  d++
+  d++;
+
   return sourceFloatX;
-}
+};

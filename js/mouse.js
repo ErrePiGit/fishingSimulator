@@ -1,7 +1,6 @@
 function mouseEvent(mposX, mposY, game, mouse) {
-
-// click on main menu
-if (game == 2) {
+  // click on main menu
+  if (game == 2) {
     if (mposY < 270 && mposY > 230) {
       mouse = 1;
     }
