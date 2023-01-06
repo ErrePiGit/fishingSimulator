@@ -22,8 +22,6 @@ floatMovement = function (sourceFloatX, resetFloatPosition) {
   }
   q++;
 
-  console.log(q);
-
   return sourceFloatX;
 };
 

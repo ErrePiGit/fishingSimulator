@@ -1,3 +1,9 @@
+canvas {
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
+
 .title {
     font-family: Tahoma, san-serif;
     font-weight: bold;
@@ -30,10 +36,4 @@ body {
 
 .divMain {
     text-align: center;
-}
-
-canvas {
-    border-width: 2px;
-    border-color: black;
-    border-style: solid;
 }

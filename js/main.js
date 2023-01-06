@@ -1,11 +1,14 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-const rect = canvas.getBoundingClientRect();
+let rect = canvas.getBoundingClientRect();
+
+var factorX = 1;
+var factorY = 1;
 
 // classes
 class floatObject {
   constructor() {
-    this.startX = 480;
+    this.startX = 410;
     this.startY = 230;
     this.x = this.startX;
     this.y = this.startY;
@@ -39,7 +42,7 @@ var float = new floatObject();
 
 class playerObject {
   constructor() {
-    this.startX = 480;
+    this.startX = 410;
     this.startY = 340;
     this.x = this.startX;
     this.y = this.startY;
@@ -146,6 +149,13 @@ function updateAll() {
 }
 
 function main() {
+  
+  canvas.height = innerHeight * 0.90;
+  canvas.width = canvas.height * 0.75;
+
+  factorX = canvas.width / 600;
+  factorY = canvas.height / 800;
+
   // control FPS
   timePassed = (Date.now() - t) / 1000;
   t = Date.now();
@@ -153,6 +163,9 @@ function main() {
 
   // handle mouse click
   document.onmousedown = function (event) {
+
+    rect = canvas.getBoundingClientRect();
+
     mposX = event.clientX - rect.left;
     mposY = event.clientY - rect.top;
 
@@ -307,6 +320,7 @@ function main() {
 
 // drawing
 function draw() {
+  context.scale (factorX, factorY);
   if (game == 2) {
     drawMainMenu();
   }
