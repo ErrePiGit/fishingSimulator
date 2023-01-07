@@ -1,3 +1,27 @@
+// drawing
+function draw() {
+  context.scale (factorX, factorY);
+  if (game == 2) {
+    drawMainMenu();
+  }
+  if (game == 3) {
+    drawSubMenuTA();
+  }
+  if (game == 0) {
+    drawFishTA();
+  }
+  if (game == 4) {
+    drawResume();
+  }
+  if (game == 5) {
+    float.x = 200;
+    float.y = 168;
+    playerOne.x = 200;
+    playerOne.y = 218;
+    drawOptions();
+  }
+}
+
 function drawMainMenu() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -61,7 +85,7 @@ function drawSubMenuTA() {
 function drawFishTA() {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  context.drawImage(bgRiver, 0, 95);
+  drawMap();
 
   float.draw();
 
@@ -72,28 +96,28 @@ function drawFishTA() {
   context.font = "1em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Timer", 300, 35);
+  context.fillText("Timer", 288, 50);
 
   context.font = "1em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
-  context.fillText(120 - t1, 300, 65);
+  context.fillText(120 - t1, 288, 90);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Total catch", 200, 35);
+  context.fillText("Total catch", 188, 50);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText(totCatch, 200, 65);
+  context.fillText(totCatch, 188, 90);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Total Weight", 400, 35);
+  context.fillText("Total Weight", 388, 50);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText(totKg.toFixed(2), 400, 65);
+  context.fillText(totKg.toFixed(2), 388, 90);
 
   context.font = "0.75em Courier";
   context.fillStyle = "#DDDDDD";
@@ -101,30 +125,30 @@ function drawFishTA() {
 
   context.font = "0.75em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Main Menu", 550, 50);
+  context.fillText("Main Menu", 526, 50);
 
   context.beginPath();
   context.strokeStyle = "#666666";
   context.lineWidth = 5;
-  context.moveTo(0, 93);
-  context.lineTo(600, 93);
+  context.moveTo(0, 126);
+  context.lineTo(600, 126);
   context.stroke();
   context.closePath();
 
   if (showInventory == 1) {
     context.fillStyle = "rgba(0, 0, 0, 0.7)";
-    context.fillRect(0, 95, 150, 705);
+    context.fillRect(0, 128, 150, 705);
 
     for (var a = 0; a < listFish.length; a++) {
       context.font = "0.75em Courier";
       context.textAlign = "left";
       context.fillStyle = "#DDDDDD";
-      context.fillText(listFish[a].name, 20, (120 + a * 15));
+      context.fillText(listFish[a].name, 20, (150 + a * 15));
 
       context.fillText(
         listFish[a].weight.toFixed(2) + " Kgs",
         70,
-        (120 + a * 15)
+        (150 + a * 15)
       );
     }
   }
@@ -210,7 +234,7 @@ function drawOptions() {
   context.fillStyle = "#DDDDDD";
   context.fillText("Easy", 200, 300);
 
-  if (difficulty == 400) {
+  if (difficulty == 300) {
     context.font = "bold 1em Courier";
   } else {
     context.font = "1em Courier";
@@ -224,9 +248,29 @@ function drawOptions() {
     context.font = "1em Courier";
   }
   context.fillStyle = "#DDDDDD";
-  context.fillText("Hard", 400, 300);
+  context.fillText("Hard", 288, 300);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Back to main menu", 20, 400);
+  context.fillText("Back to main menu", 20, 288);
+}
+
+function drawMap(){
+  for (let eachCol = 0; eachCol < mapRiver.gridCols; eachCol++){
+    for (let eachRow = 0; eachRow < mapRiver.gridRows; eachRow++) {
+      const tile = mapRiver.getTile(eachCol, eachRow);
+
+        context.drawImage(
+          tileMapRiver,
+          tile * mapRiver.tileSize,
+          0,
+          mapRiver.tileSize - 2,
+          mapRiver.tileSize - 2,
+          eachCol * mapRiver.tileSize, 
+          eachRow * mapRiver.tileSize + 128,
+          mapRiver.tileSize, 
+          mapRiver.tileSize
+        );
+    }
+  }
 }

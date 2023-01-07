@@ -18,13 +18,13 @@ function mouseEvent(mposX, mposY, game, mouse) {
 
   // click on time attack
   if (game == 0) {
-    if (mposY < 600 * factorY && mposY > 95 * factorY) {
+    if (mposY < 600 * factorY && mposY > 128 * factorY) {
       mouse = 1;
     }
-    if (mposY <= 95 * factorY && mposY > 0 && mposX < 100 * factorX) {
+    if (mposY <= 128 * factorY && mposY > 0 && mposX < 100 * factorX) {
       mouse = 2;
     }
-    if (mposY <= 95 * factorY && mposY > 0 && mposX > 500 * factorX) {
+    if (mposY <= 128 * factorY && mposY > 0 && mposX > 476 * factorX) {
       mouse = 3;
     }
   }
