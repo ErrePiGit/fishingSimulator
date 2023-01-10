@@ -1,6 +1,5 @@
 function main() {
-  
-  canvas.height = innerHeight * 0.90;
+  canvas.height = innerHeight * 0.9;
   canvas.width = canvas.height * 0.75;
 
   factorX = canvas.width / 576;
@@ -13,13 +12,14 @@ function main() {
 
   // handle mouse click
   document.onmousedown = function (event) {
-
     rect = canvas.getBoundingClientRect();
 
     mposX = event.clientX - rect.left;
     mposY = event.clientY - rect.top;
 
     mouse = mouseEvent(mposX, mposY, game, mouse);
+    moving = true;
+    cast = false;
   };
 
   // stat event
@@ -30,10 +30,13 @@ function main() {
     if (countT == 0) {
       t0 = Date.now();
       countT = 1;
+      moving = 0;
       float.x = float.startX;
       float.y = float.startY;
       playerOne.x = playerOne.startX;
       playerOne.y = playerOne.startY;
+      cast = false;
+      playerOne.playerWalk = 1;
     }
 
     t1 = Math.round((Date.now() - t0) / 1000);
@@ -44,74 +47,76 @@ function main() {
     }
 
     // float movement
-    if (stat == 0) {
-      float.sourceFloatX = floatMovement(
-        float.sourceFloatX,
-        resetFloatPosition
-      );
-      resetFloatPosition = 1;
+    if (floatOnWater == true) {
+      if (stat == 0) {
+        float.sourceFloatX = floatMovement(
+          float.sourceFloatX,
+          resetFloatPosition
+        );
+        resetFloatPosition = 1;
 
-      if (mouse == 1) {
-        i = 0;
-        mouse = 0;
-      }
-
-      if (i > frequency * Math.random()) {
-        if (Math.random() < 0.2) {
-          stat = 1;
+        if (mouse == 1) {
           i = 0;
+          mouse = 0;
+        }
+
+        if (i > frequency * Math.random()) {
+          if (Math.random() < 0.2) {
+            stat = 1;
+            i = 0;
+          }
         }
       }
-    }
 
-    // if mouse down in this stat you catch the fish
-    if (stat == 1) {
-      float.sourceFloatX = floatCatch(float.sourceFloatX);
-      resetFloatPosition = 0;
+      // if mouse down in this stat you catch the fish
+      if (stat == 1) {
+        float.sourceFloatX = floatCatch(float.sourceFloatX);
+        resetFloatPosition = 0;
 
-      if (mouse == 1) {
-        stat = 0;
-        mouse = 0;
-        showCatch = 1;
-        d0 = Date.now();
-
-        // random fish
-        catchedFish = getRandomFish();
-
-        listFish.push(catchedFish);
-
-        totCatch++;
-        totKg += catchedFish.weight;
-      }
-
-      if (i > (frequency / difficulty) * Math.random()) {
-        if (Math.random() < 0.2) {
+        if (mouse == 1) {
           stat = 0;
-          i = 0;
+          mouse = 0;
+          showCatch = 1;
+          d0 = Date.now();
+
+          // random fish
+          catchedFish = getRandomFish();
+
+          listFish.push(catchedFish);
+
+          totCatch++;
+          totKg += catchedFish.weight;
         }
+
+        if (i > (frequency / difficulty) * Math.random()) {
+          if (Math.random() < 0.2) {
+            stat = 0;
+            i = 0;
+          }
+        }
+      }
+
+      if (mouse == 3) {
+        game = 4;
+        mouse = 0;
+      }
+
+      if (mouse == 2 && showInventory == 0) {
+        showInventory = 1;
+        mouse = 0;
+      }
+      if (mouse == 2 && showInventory == 1) {
+        showInventory = 0;
+        mouse = 0;
       }
     }
 
-    if (mouse == 3) {
-      game = 4;
-      mouse = 0;
-    }
-
-    if (mouse == 2 && showInventory == 0) {
-      showInventory = 1;
-      mouse = 0;
-    }
-    if (mouse == 2 && showInventory == 1) {
-      showInventory = 0;
-      mouse = 0;
-    }
-  }
-
-  // after catch
-  if (showCatch == 1) {
-    d1 = Date.now() - d0;
-    if (d1 > 3000) {
-      showCatch = 0;
+    // after catch
+    if (showCatch == 1) {
+      d1 = Date.now() - d0;
+      if (d1 > 3000) {
+        showCatch = 0;
+      }
     }
   }
 
@@ -145,6 +150,11 @@ function main() {
       totCatch = 0;
       listFish.length = 0;
       game = 2;
+      cast = false;
+      floatOnWater = false;
+      moving = true;
+      playerOne.i = 0;
+      playerOne.c = 0;
     }
   }
 

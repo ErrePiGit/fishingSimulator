@@ -27,6 +27,16 @@ function mouseEvent(mposX, mposY, game, mouse) {
     if (mposY <= 128 * factorY && mposY > 0 && mposX > 476 * factorX) {
       mouse = 3;
     }
+    // click on retrive/cast
+    if (mposY >= 640 * factorY && mposY <= 704 * factorY && mposX >= 448) {
+      if (floatOnWater == true) {
+        floatOnWater = false;
+        cast = false;
+      }
+      if (floatOnWater == false && cast == true) {
+        floatOnWater = true;
+      }
+    }
   }
 
   // click on catch

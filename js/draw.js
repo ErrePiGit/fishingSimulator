@@ -87,11 +87,13 @@ function drawFishTA() {
 
   drawMap();
 
-  float.draw();
-
-  context.drawImage(rod, playerOneRod.x, playerOneRod.y);
+  if (floatOnWater == true) {
+    float.draw();
+  }
 
   playerOne.draw();
+
+  playerOneRod.draw();
 
   context.font = "1em Courier";
   context.textAlign = "center";
@@ -155,24 +157,48 @@ function drawFishTA() {
 
   if (showCatch == 1) {
     context.fillStyle = "rgba(0, 0, 0, 0.7)";
-    context.fillRect(300, 600, 300, 100);
+    context.fillRect(300, 500, 300, 100);
 
     context.font = "Bold 1em Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Catch!", 320, 630);
+    context.fillText("Catch!", 320, 530);
 
     context.font = "0.75em Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Fish: " + catchedFish.name, 320, 670);
+    context.fillText("Fish: " + catchedFish.name, 320, 570);
 
     context.font = "0.75em Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText(
-      "Weight: " + catchedFish.weight.toFixed(2) + " Kgs",
-      420,
-      670
-    );
+    context.fillText("Weight: " + catchedFish.weight.toFixed(2) + " Kgs", 420,570);
+  }
+
+  if (floatOnWater == true) {
+
+    context.fillStyle = "rgba(255, 0, 0, 0.7)";
+    context.fillRect(448, 640, 128, 64);
+
+    context.font = "Bold 1.5em Courier";
+    context.textAlign = "center";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Walk", 512, 680);
+
+  }
+  if (floatOnWater == false) {
+
+    context.fillStyle = "rgba(255, 0, 0, 0.7)";
+    context.fillRect(448, 640, 128, 64);
+
+    context.font = "Bold 1.5em Courier";
+    context.textAlign = "center";
+    if (cast == false) {
+    context.fillStyle = "rgba(64, 64, 64, 0.7)";
+    }
+    if (cast == true) {
+      context.fillStyle = "#DDDDDD";
+      }
+    context.fillText("Cast", 512, 680);
+
   }
 }
 
@@ -234,13 +260,13 @@ function drawOptions() {
   context.fillStyle = "#DDDDDD";
   context.fillText("Easy", 200, 300);
 
-  if (difficulty == 300) {
+  if (difficulty == 400) {
     context.font = "bold 1em Courier";
   } else {
     context.font = "1em Courier";
   }
   context.fillStyle = "#DDDDDD";
-  context.fillText("Normal", 300, 300);
+  context.fillText("Normal", 290, 300);
 
   if (difficulty == 600) {
     context.font = "bold 1em Courier";
@@ -248,11 +274,11 @@ function drawOptions() {
     context.font = "1em Courier";
   }
   context.fillStyle = "#DDDDDD";
-  context.fillText("Hard", 288, 300);
+  context.fillText("Hard", 400, 300);
 
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Back to main menu", 20, 288);
+  context.fillText("Back to main menu", 20, 400);
 }
 
 function drawMap(){
@@ -271,6 +297,11 @@ function drawMap(){
           mapRiver.tileSize, 
           mapRiver.tileSize
         );
+        if (tile > 3) {
+          let collisionObjects = new collisionObject(mapRiver.tileSize*eachCol, mapRiver.tileSize*eachRow + 128);
+          collisionObjects.isCollision(collisionObjects, playerOne);
+
+        }
     }
   }
 }

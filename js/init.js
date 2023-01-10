@@ -17,6 +17,29 @@ class floatObject {
     this.sourceFloatY = 0;
   }
 
+  position(){
+    if (playerOne.playerDirection == 0) {
+      this.x = playerOne.x;
+      this.y = playerOne.y + 96 * factorY;
+    }
+
+    if (playerOne.playerDirection == 1) {
+      this.x = playerOne.x - 96 * factorX;
+      this.y = playerOne.y;
+    }
+
+    if (playerOne.playerDirection == 2) {
+      this.x = playerOne.x + 96 * factorX;
+      this.y = playerOne.y;
+    }
+
+    if (playerOne.playerDirection == 3) {
+      this.x = playerOne.x;
+      this.y = playerOne.y - 96 * factorY;
+    }
+  }
+
+
   draw() {
     let image = new Image();
     image.src = "img/float_01.png";
@@ -47,8 +70,12 @@ class playerObject {
     this.playerHeight = 64;
     this.sourcePlayerWidth = 32;
     this.sourcePlayerHeight = 32;
-    this.sourcePlayerX = 38;
-    this.sourcePlayerY = 100;
+    this.sourcePlayerX = 32;
+    this.sourcePlayerY = 32;
+    this.playerDirection = 1;
+    this.playerWalk = 1;
+    this.i = 0;
+    this.c = 0;
   }
 
   draw() {
@@ -57,8 +84,8 @@ class playerObject {
 
     context.drawImage(
       image,
-      this.sourcePlayerX,
-      this.sourcePlayerY,
+      this.sourcePlayerX * this.playerWalk,
+      this.sourcePlayerY * this.playerDirection,
       this.sourcePlayerWidth,
       this.sourcePlayerHeight,
       this.x,
@@ -67,14 +94,128 @@ class playerObject {
       this.playerHeight
     );
   }
+
+  move() {
+    if (moving == true && floatOnWater == false && (mposY < 600 * factorY) && (mposY > 128 * factorY)) {
+      if (mposX < this.x * factorX) {
+        this.playerDirection = 1;
+        this.i = 1;
+        this.x -= speed * timePassed;
+        if (this.x * factorX <= mposX) {
+          mposX = this.x * factorX;
+          this.playerWalk = 1;
+          this.i = 0;
+          this.c = 0;
+        }
+      }
+
+      if (mposX > this.x * factorX && mposX < canvas.width - (this.playerWidth * factorX)) {
+        this.playerDirection = 2;
+        this.i = 1;
+        this.x += speed * timePassed;
+        if (this.x * factorX >= mposX) {
+          mposX = this.x * factorX;
+          this.playerWalk = 1;
+          this.i = 0;
+          this.c = 0;
+        }
+      }
+
+      if (mposX == this.x * factorX) {
+        if (mposY < this.y * factorY) {
+          this.playerDirection = 3;
+          this.i = 1;
+          this.y -= speed * timePassed;
+          if (this.y * factorY <= mposY) {
+            mposY = this.y * factorY;
+            this.playerWalk = 1;
+            this.i = 0;
+            this.c = 0;
+          }
+        }
+
+        if (mposY > this.y * factorY && mposY < canvas.height - (this.playerHeight * factorY)) {
+          this.playerDirection = 0;
+          this.i = 1;
+          this.y += speed * timePassed;
+          if (this.y * factorY >= mposY) {
+            mposY = this.y * factorY;
+            this.playerWalk = 1;
+            this.i = 0;
+            this.c = 0;
+          }
+        }
+      }
+      if (this.i > 0) {
+        if (this.c >= 0 && this.c < 15) {
+          this.playerWalk = 1;
+          this.c++;
+        }
+        if (this.c >= 15 && this.c < 30) {
+          this.playerWalk = 2;
+          this.c++;
+        }
+        if (this.c >= 30 && this.c < 45) {
+          this.playerWalk = 1;
+          this.c++;
+        }
+        if (this.c >= 45 && this.c < 59) {
+          this.playerWalk = 0;
+          this.c++;
+        }
+        if (this.c >= 59) {
+          this.playerWalk = 0;
+          this.c = 0;
+        }
+
+      }
+    }
+  }
+
+  getPreviousXY() {
+
+    this.prevX = this.x,
+    this.prevY = this.y;
+
+  }
 }
 
 var playerOne = new playerObject();
 
 class playerRod {
   constructor() {
-    this.x = playerOne.x + 32;
-    this.y = playerOne.y - 20;
+    this.x = playerOne.x;
+    this.y = playerOne.y;
+    this.rodWidth = 64;
+    this.rodHeight = 64;
+    this.sourceRodWidth = 32;
+    this.sourceRodHeight = 32;
+    this.sourceRodX = playerOne.sourcePlayerX;
+    this.sourceRodY = playerOne.sourcePlayerY;
+  }
+
+  move(){
+    this.x = playerOne.x;
+    this.y = playerOne.y;
+    this.sourceRodX = playerOne.sourcePlayerX;
+    this.sourceRodY = playerOne.sourcePlayerY;
+  }
+
+  draw() {
+    let image = new Image();
+    image.src = "img/rod_01.png";
+
+    context.drawImage(
+      image,
+      this.sourceRodX,
+      this.sourceRodY * playerOne.playerDirection,
+      this.sourceRodWidth,
+      this.sourceRodHeight,
+      this.x,
+      this.y,
+      this.rodWidth,
+      this.rodHeight
+    );
   }
 }
 
@@ -86,21 +227,48 @@ var mapRiver = {
   gridRows: 12,
   tileSize: 64,
   tiles: [
-    0,1,1,3,2,0,2,1,0,
-    5,5,5,5,5,5,5,5,5,
-    4,4,4,4,4,4,4,4,4,
-    6,6,6,16,13,6,6,6,6,
-    1,0,3,8,7,2,0,2,3,
-    2,0,2,8,7,3,0,0,1,
-    3,2,1,8,7,0,2,3,0,
-    3,0,0,8,7,1,0,0,3,
-    0,1,2,8,7,1,2,0,3,
-    0,0,3,8,7,0,0,1,0,
-    1,2,0,8,7,2,3,0,0,
-],
+    0, 1, 1, 3, 2, 0, 2, 1, 0, 
+    5, 5, 5, 5, 5, 5, 5, 5, 5, 
+    4, 4, 4, 4, 4, 4, 4, 4, 4, 
+    6, 6, 6,16,13, 6, 6, 6, 6,
+    1, 0, 3, 8, 7, 2, 0, 2, 3, 
+    2, 0, 2, 8, 7, 3, 0, 0, 1, 
+    3, 2, 1, 8, 7, 0, 2, 3, 0, 
+    3, 0, 0, 8, 7, 1, 0, 0, 3, 
+    0, 1, 2, 8, 7, 1, 2, 0, 3, 
+    0, 0, 3, 8, 7, 0, 0, 1, 0, 
+    1, 2, 0, 8, 7, 2, 3, 0, 0,
+  ],
   getTile(col, row) {
     return this.tiles[row * mapRiver.gridCols + col];
   },
+};
+
+class collisionObject {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.w = 64;
+    this.h = 64;
+  }
+
+  isCollision(rect1, rect2) {
+    if (
+      rect1.x < rect2.x + rect2.playerWidth &&
+      rect1.x + rect1.w > rect2.x &&
+      rect1.y < rect2.y + rect2.playerHeight &&
+      rect1.h + rect1.y > rect2.y
+    ) {
+      // Operation for the collision
+      moving = false;
+      playerOne.x = playerOne.prevX;
+      playerOne.y = playerOne.prevY;
+      cast = true;
+      playerOne.playerWalk = 1;
+      playerOne.i = 0;
+      playerOne.c = 0;
+    }
+  }
 }
 
 // utilities and counters
@@ -110,6 +278,9 @@ var showCatch = 0;
 var showInventory = 0;
 var factorX = 1;
 var factorY = 1;
+var moving = true;
+var floatOnWater = false;
+var cast = false;
 
 // difficulty 600 = hard, 400 = normal, 200 = easy
 var difficulty = 400;
@@ -136,7 +307,7 @@ var game = 2;
 var t = Date.now();
 var timePassed = 0;
 var fps = 0;
-var speed = 3;
+var speed = 64;
 
 // timer
 var t0 = 0;
@@ -146,14 +317,10 @@ var d0 = 0;
 var d1 = 0;
 
 // images src
-let rod = new Image();
-rod.src = "img/rod_01.png";
 let bgMain = new Image();
 bgMain.src = "img/bg_main.png";
 let bgLocation = new Image();
 bgLocation.src = "img/bg_location.png";
-let bgRiver = new Image();
-bgRiver.src = "img/bg_river.png";
 let bgCatch = new Image();
 bgCatch.src = "img/bg_catch.png";
 let bgOptions = new Image();
@@ -167,6 +334,10 @@ window.onload = function () {
 
 function updateAll() {
   main();
+  playerOne.getPreviousXY();
+  playerOne.move();
+  playerOneRod.move();
+  float.position();
   draw();
 
   window.requestAnimationFrame(updateAll);
