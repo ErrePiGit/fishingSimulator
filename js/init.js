@@ -20,22 +20,22 @@ class floatObject {
   position(){
     if (playerOne.playerDirection == 0) {
       this.x = playerOne.x;
-      this.y = playerOne.y + 96 * factorY;
+      this.y = playerOne.y + 96;
     }
 
     if (playerOne.playerDirection == 1) {
-      this.x = playerOne.x - 96 * factorX;
+      this.x = playerOne.x - 96;
       this.y = playerOne.y;
     }
 
     if (playerOne.playerDirection == 2) {
-      this.x = playerOne.x + 96 * factorX;
+      this.x = playerOne.x + 96 ;
       this.y = playerOne.y;
     }
 
     if (playerOne.playerDirection == 3) {
       this.x = playerOne.x;
-      this.y = playerOne.y - 96 * factorY;
+      this.y = playerOne.y - 96;
     }
   }
 
