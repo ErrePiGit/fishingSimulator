@@ -20,6 +20,9 @@ function main() {
     mouse = mouseEvent(mposX, mposY, game, mouse);
     moving = true;
     cast = false;
+
+    mposXX = mposX - ((playerOne.playerWidth / 2) * factorX);
+    mposYY = mposY - ((playerOne.playerHeight / 2) * factorY);
   };
 
   // time attack
@@ -40,6 +43,22 @@ function main() {
 
     if (t1 > 119) {
       game = 4;
+      mouse = 0;
+    }
+
+    // return to main menu
+    if (mouse == 3) {
+      game = 4;
+      mouse = 0;
+    }
+
+    // open inventory / fish history
+    if (mouse == 2 && showInventory == 0) {
+      showInventory = 1;
+      mouse = 0;
+    }
+    if (mouse == 2 && showInventory == 1) {
+      showInventory = 0;
       mouse = 0;
     }
 
@@ -94,20 +113,6 @@ function main() {
             i = 0;
           }
         }
-      }
-
-      if (mouse == 3) {
-        game = 4;
-        mouse = 0;
-      }
-
-      if (mouse == 2 && showInventory == 0) {
-        showInventory = 1;
-        mouse = 0;
-      }
-      if (mouse == 2 && showInventory == 1) {
-        showInventory = 0;
-        mouse = 0;
       }
     }
 

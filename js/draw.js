@@ -220,9 +220,28 @@ function drawResume() {
   context.fillStyle = "#DDDDDD";
   context.fillText("Total Kgs: " + totKg.toFixed(2), 20, 110);
 
+  if (listFish.length > 0) {
+    context.font = "1em Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Fish History: ", 20, 170);
+
+    for (var a = 0; a < listFish.length; a++) {
+      context.font = "1em Courier";
+      context.textAlign = "left";
+      context.fillStyle = "#DDDDDD";
+      context.fillText(listFish[a].name, 20, 200 + a * 30);
+
+      context.fillText(
+        listFish[a].weight.toFixed(2) + " Kgs",
+        90,
+        200 + a * 30
+      );
+    }
+  }
+
   context.font = "1em Courier";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Main menu", 20, 240);
+  context.fillText("Main menu", 20, 720);
 }
 
 function drawOptions() {

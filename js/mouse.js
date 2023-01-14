@@ -48,7 +48,7 @@ function mouseEvent(mposX, mposY, game, mouse) {
 
   // click on resume
   if (game == 4) {
-    if (mposY < 260 * factorY && mposY > 220 * factorY) {
+    if (mposY < 740 * factorY && mposY > 700 * factorY) {
       mouse = 1;
     }
   }

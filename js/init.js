@@ -29,12 +29,12 @@ class floatObject {
     }
 
     if (playerOne.playerDirection == 2) {
-      this.x = playerOne.x + 96 ;
+      this.x = playerOne.x + 96;
       this.y = playerOne.y;
     }
 
     if (playerOne.playerDirection == 3) {
-      this.x = playerOne.x;
+      this.x = playerOne.x + (playerOne.playerWidth / 2);
       this.y = playerOne.y - 96;
     }
   }
@@ -96,50 +96,50 @@ class playerObject {
   }
 
   move() {
-    if (moving == true && floatOnWater == false && (mposY < 600 * factorY) && (mposY > 128 * factorY)) {
-      if (mposX < this.x * factorX) {
+    if (moving == true && floatOnWater == false && (mposYY < 600 * factorY) && (mposYY > 128 * factorY)) {
+      if (mposXX < this.x * factorX) {
         this.playerDirection = 1;
         this.i = 1;
         this.x -= speed * timePassed;
-        if (this.x * factorX <= mposX) {
-          mposX = this.x * factorX;
+        if (this.x * factorX <= mposXX) {
+          mposXX = this.x * factorX;
           this.playerWalk = 1;
           this.i = 0;
           this.c = 0;
         }
       }
 
-      if (mposX > this.x * factorX && mposX < canvas.width - (this.playerWidth * factorX)) {
+      if (mposXX > this.x * factorX && mposXX < canvas.width - (this.playerWidth * factorX)) {
         this.playerDirection = 2;
         this.i = 1;
         this.x += speed * timePassed;
-        if (this.x * factorX >= mposX) {
-          mposX = this.x * factorX;
+        if (this.x * factorX >= mposXX) {
+          mposXX = this.x * factorX;
           this.playerWalk = 1;
           this.i = 0;
           this.c = 0;
         }
       }
 
-      if (mposX == this.x * factorX) {
-        if (mposY < this.y * factorY) {
+      if (mposXX == this.x * factorX) {
+        if (mposYY < this.y * factorY) {
           this.playerDirection = 3;
           this.i = 1;
           this.y -= speed * timePassed;
-          if (this.y * factorY <= mposY) {
-            mposY = this.y * factorY;
+          if (this.y * factorY <= mposYY) {
+            mposYY = this.y * factorY;
             this.playerWalk = 1;
             this.i = 0;
             this.c = 0;
           }
         }
 
-        if (mposY > this.y * factorY && mposY < canvas.height - (this.playerHeight * factorY)) {
+        if (mposYY > this.y * factorY && mposYY < canvas.height - (this.playerHeight * factorY)) {
           this.playerDirection = 0;
           this.i = 1;
           this.y += speed * timePassed;
-          if (this.y * factorY >= mposY) {
-            mposY = this.y * factorY;
+          if (this.y * factorY >= mposYY) {
+            mposYY = this.y * factorY;
             this.playerWalk = 1;
             this.i = 0;
             this.c = 0;
@@ -288,7 +288,10 @@ var difficulty = 400;
 // mouse position and stat
 var mposX = 0;
 var mposY = 0;
+var mposXX = 0;
+var mposYY = 0;
 var mouse = 0;
+
 
 // score
 var totCatch = 0;
