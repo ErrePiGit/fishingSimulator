@@ -30,7 +30,7 @@ function drawMainMenu() {
   context.font = "2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Fishing Simulator 3000", 300, 50);
+  context.fillText("Pixy Fishing", 300, 50);
 
   context.font = "bold 1em Courier";
   context.textAlign = "left";
@@ -62,7 +62,7 @@ function drawSubMenuTA() {
   context.font = "2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Fishing Simulator 3000", 300, 50);
+  context.fillText("Pixy Fishing", 300, 50);
 
   context.font = "bold 1em Courier";
   context.textAlign = "left";
@@ -233,7 +233,7 @@ function drawOptions() {
   context.font = "2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
-  context.fillText("Fishing Simulator 3000", 300, 50);
+  context.fillText("Pixy Fishing", 300, 50);
 
   context.font = "1em Courier";
   context.textAlign = "left";

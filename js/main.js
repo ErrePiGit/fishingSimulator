@@ -22,9 +22,6 @@ function main() {
     cast = false;
   };
 
-  // stat event
-  i += speed * timePassed * 1.1;
-
   // time attack
   if (game == 0) {
     if (countT == 0) {
@@ -46,6 +43,9 @@ function main() {
       mouse = 0;
     }
 
+    // counter 
+    i++;
+
     // float movement
     if (floatOnWater == true) {
       if (stat == 0) {
@@ -60,7 +60,7 @@ function main() {
           mouse = 0;
         }
 
-        if (i > frequency * Math.random()) {
+        if (i > Math.random() * (frequency - fps) + fps) {
           if (Math.random() < 0.2) {
             stat = 1;
             i = 0;
@@ -88,7 +88,7 @@ function main() {
           totKg += catchedFish.weight;
         }
 
-        if (i > (frequency / difficulty) * Math.random()) {
+        if (i > Math.random() * ((frequency / difficulty) - (fps / 2)) + (fps / 2))  {
           if (Math.random() < 0.2) {
             stat = 0;
             i = 0;
