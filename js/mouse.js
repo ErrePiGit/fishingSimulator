@@ -1,4 +1,4 @@
-function mouseEvent(mposX, mposY, game, mouse) {
+function mouseEvent(mposX, mposY, game, mouse, stat) {
   // click on main menu
   if (game == 2) {
     if (mposY < 270 * factorY && mposY > 230 * factorY) {
@@ -27,14 +27,21 @@ function mouseEvent(mposX, mposY, game, mouse) {
     if (mposY <= 128 * factorY && mposY > 0 && mposX > 476 * factorX) {
       mouse = 3;
     }
-    // click on retrive/cast
-    if (mposY >= 640 * factorY && mposY <= 704 * factorY && mposX >= 448) {
-      if (floatOnWater == true) {
-        floatOnWater = false;
-        cast = false;
+    if (stat == 4) {
+      if (mposY <= 576 * factorY && mposY > 448 && mposX > 128 * factorX && mposX < 448 * factorX) {
+        mouse = 4;
       }
-      if (floatOnWater == false && cast == true) {
-        floatOnWater = true;
+    }
+    // click on retrive/cast
+    if (stat != 4) {
+      if (mposY >= 640 * factorY && mposY <= 704 * factorY && mposX >= 448) {
+        if (floatOnWater == true) {
+          floatOnWater = false;
+          cast = false;
+        }
+        if (floatOnWater == false && cast == true) {
+          floatOnWater = true;
+        }
       }
     }
   }

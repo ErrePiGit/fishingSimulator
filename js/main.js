@@ -17,12 +17,13 @@ function main() {
     mposX = event.clientX - rect.left;
     mposY = event.clientY - rect.top;
 
-    mouse = mouseEvent(mposX, mposY, game, mouse);
+    mouse = mouseEvent(mposX, mposY, game, mouse, stat);
     moving = true;
     cast = false;
 
     mposXX = mposX - ((playerOne.playerWidth / 2) * factorX);
     mposYY = mposY - ((playerOne.playerHeight / 2) * factorY);
+
   };
 
   // time attack
@@ -30,7 +31,7 @@ function main() {
     if (countT == 0) {
       t0 = Date.now();
       countT = 1;
-      moving = 0;
+      moving = false;
       float.x = float.startX;
       float.y = float.startY;
       playerOne.x = playerOne.startX;
@@ -39,11 +40,20 @@ function main() {
       playerOne.playerWalk = 1;
     }
 
+    if (stat != 4) {
     t1 = Math.round((Date.now() - t0) / 1000);
+    }
 
     if (t1 > 119) {
-      game = 4;
-      mouse = 0;
+      stat = 4;
+    }
+
+    if (stat == 4) {
+      moving = false;
+      if (mouse == 4) {
+        game = 4;
+        mouse = 0;
+      }
     }
 
     // return to main menu

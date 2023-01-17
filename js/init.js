@@ -299,7 +299,7 @@ var totKg = 0;
 var catchedFish;
 var listFish = [];
 
-// stat 0 = wait, 1 = fish, 2 = return, 3 = catch
+// stat 0 = wait, 1 = fish, 2 = return, 3 = catch, 4 = round over
 var stat = 0;
 var frequency = 2000;
 
@@ -342,6 +342,7 @@ function updateAll() {
   playerOneRod.move();
   float.position();
   draw();
+  console.log(stat, mouse);
 
   window.requestAnimationFrame(updateAll);
 }

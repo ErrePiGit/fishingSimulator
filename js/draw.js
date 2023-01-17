@@ -27,7 +27,7 @@ function drawMainMenu() {
 
   context.drawImage(bgMain, 0, 0);
 
-  context.font = "2em Courier";
+  context.font = "Bold 2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
   context.fillText("Pixy Fishing", 300, 50);
@@ -59,7 +59,7 @@ function drawSubMenuTA() {
 
   context.drawImage(bgLocation, 0, 0);
 
-  context.font = "2em Courier";
+  context.font = " Bold 2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
   context.fillText("Pixy Fishing", 300, 50);
@@ -200,6 +200,20 @@ function drawFishTA() {
     context.fillText("Cast", 512, 680);
 
   }
+
+  if (stat == 4) {
+    context.fillStyle = "rgba(0, 0, 0, 0.7)";
+    context.fillRect(128, 448, 320, 128);
+
+    context.font = "Bold 1em Courier";
+    context.textAlign = "center";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Round Over", 288, 500);
+
+    context.font = "0.75em Courier";
+    context.fillStyle = "#DDDDDD";
+    context.fillText("Go to the resume", 288, 530);
+  }
 }
 
 function drawResume() {
@@ -249,7 +263,7 @@ function drawOptions() {
 
   context.drawImage(bgOptions, 0, 0);
 
-  context.font = "2em Courier";
+  context.font = "Bold 2em Courier";
   context.textAlign = "center";
   context.fillStyle = "#DDDDDD";
   context.fillText("Pixy Fishing", 300, 50);
