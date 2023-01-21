@@ -139,7 +139,7 @@ function drawFishTA() {
 
   if (showInventory == 1) {
     context.fillStyle = "rgba(0, 0, 0, 0.7)";
-    context.fillRect(0, 128, 150, 705);
+    context.fillRect(0, 128, 192, 705);
 
     for (var a = 0; a < listFish.length; a++) {
       context.font = "0.75em Courier";
@@ -157,20 +157,20 @@ function drawFishTA() {
 
   if (showCatch == 1) {
     context.fillStyle = "rgba(0, 0, 0, 0.7)";
-    context.fillRect(300, 500, 300, 100);
+    context.fillRect(256, 448, 320, 128);
 
     context.font = "Bold 1em Courier";
     context.textAlign = "left";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Catch!", 320, 530);
+    context.fillText("Catch!", 280, 488);
 
     context.font = "0.75em Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Fish: " + catchedFish.name, 320, 570);
+    context.fillText("Fish: " + catchedFish.name, 280, 538);
 
     context.font = "0.75em Courier";
     context.fillStyle = "#DDDDDD";
-    context.fillText("Weight: " + catchedFish.weight.toFixed(2) + " Kgs", 420,570);
+    context.fillText("Weight: " + catchedFish.weight.toFixed(2) + " Kgs", 390, 538);
   }
 
   if (floatOnWater == true) {

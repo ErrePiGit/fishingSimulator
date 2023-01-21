@@ -28,7 +28,7 @@ function mouseEvent(mposX, mposY, game, mouse, stat) {
       mouse = 3;
     }
     if (stat == 4) {
-      if (mposY <= 576 * factorY && mposY > 448 && mposX > 128 * factorX && mposX < 448 * factorX) {
+      if (mposY <= 576 * factorY && mposY > 448 * factorY && mposX > 128 * factorX && mposX < 448 * factorX) {
         mouse = 4;
       }
     }
