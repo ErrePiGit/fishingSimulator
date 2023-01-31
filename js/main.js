@@ -2,6 +2,11 @@ function main() {
   canvas.height = innerHeight * 0.9;
   canvas.width = canvas.height * 0.75;
 
+  if (canvas.width > innerWidth) {
+    canvas.width = innerWidth * 0.9;
+    canvas.height = canvas.width * 1.33;
+  }
+
   factorX = canvas.width / 576;
   factorY = canvas.height / 768;
 
